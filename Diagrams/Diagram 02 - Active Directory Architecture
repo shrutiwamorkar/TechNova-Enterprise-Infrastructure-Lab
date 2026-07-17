@@ -1,10 +1,23 @@
-TECHNOVA.LOCAL
-        │
-        │
-   Domain Controller
-        │
-   ┌────┴─────┐
-   │          │
- DNS      Active Directory
-   │
- Authentication
+## Diagram 02 – Active Directory Architecture
+
+```mermaid
+flowchart TB
+
+    Domain["TECHNOVA.LOCAL"]
+
+    Domain --> DC["DC01<br/>Windows Server 2022"]
+
+    DC --> AD["Active Directory Domain Services"]
+
+    DC --> DNS["DNS Server"]
+
+    AD --> Users["Domain Users"]
+
+    AD --> Groups["Security Groups"]
+
+    AD --> Computers["Domain Computers"]
+
+    Computers --> Ubuntu["Ubuntu01"]
+
+    Computers --> Client["Windows Client (Phase 09)"]
+```
