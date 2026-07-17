@@ -2,78 +2,93 @@
 
 ## Overview
 
-This repository documents the design, implementation, administration, and troubleshooting of a simulated enterprise IT infrastructure.
+This project demonstrates the deployment of a complete enterprise infrastructure using Windows Server 2022, Ubuntu Server 24.04, Active Directory Domain Services, DNS, DHCP, Group Policy, Linux administration, and VirtualBox.
 
-The objective of this project is to gain practical hands-on experience with enterprise system administration by building a production-inspired lab environment using Windows Server, Linux, networking services and automation.
+The objective is to simulate a production enterprise environment while documenting every configuration step, troubleshooting activity, and best practice.
 
 ---
 
-## Technologies
+## Technologies Used
 
 - Windows Server 2022
-- Ubuntu Server 24.04 LTS
-- Oracle VirtualBox
-- Active Directory Domain Services (AD DS)
+- Ubuntu Server 24.04
+- Active Directory Domain Services
 - DNS
 - DHCP
 - Group Policy
-- Windows File Services
-- Linux Administration
+- VirtualBox
 - PowerShell
 - Bash
+- VS Code
 - Git & GitHub
 
 ---
 
-## Lab Architecture
+## Infrastructure
 
-The lab simulates a fictional organization called **TechNova Solutions**.
-
-Infrastructure components will include:
-
-- Domain Controller (DC01)
-- Ubuntu Server (UBU01)
-- Windows Client (CLIENT01)
-- File Server (FS01)
-- Active Directory
-- DNS
-- DHCP
-- Shared Drives
-- Department-based Access Control
+Internet
+│
+Home Router
+│
+VirtualBox NAT
+│
+────────────────────────
+Internal Network
+│
+├── DC01 (Windows Server)
+│ IP : 192.168.100.10
+│
+├── Ubuntu01
+│ IP : 192.168.100.20
+│
+└── Future Windows Clients
 
 ---
 
-## Learning Goals
+## Documentation
 
-- Build and administer a Windows Server environment.
-- Deploy and manage Active Directory.
-- Configure DNS and DHCP.
-- Learn Linux system administration.
-- Practice PowerShell and Bash scripting.
-- Understand enterprise networking concepts.
-- Develop troubleshooting skills.
-- Document every stage of the implementation.
+- Phase 01 – Environment Preparation
+- Phase 02 – Windows Server Installation
+- Phase 03 – Active Directory Installation
+- Phase 04 – DNS Configuration
+- Phase 05 – Organizational Units & Users
+- Phase 06 – Group Policy
+- Phase 07 – Ubuntu Server Installation
+- Phase 08 – Ubuntu Active Directory Integration
+- Phase 09 – Windows Client Domain Join
+- Phase 10 – File Server
+- Phase 11 – DHCP Server
+- Phase 12 – Backup & Recovery
+
+---
+
+## Skills Demonstrated
+
+- Active Directory Administration
+- DNS Management
+- Linux Administration
+- Windows Server Administration
+- Kerberos Authentication
+- Identity Management
+- Group Policy
+- Virtualization
+- Infrastructure Documentation
+- Troubleshooting
+- Git Version Control
 
 ---
 
 ## Current Progress
 
-- [x] Project initialization
-- [x] VirtualBox installation
-- [x] Ubuntu Server download
-- [ ] Windows Server installation
-- [ ] Active Directory
-- [ ] DNS
+- [x] Environment Preparation
+- [x] Windows Server Installation
+- [x] Active Directory Installation
+- [x] DNS Configuration
+- [x] Organizational Units
+- [x] Group Policy
+- [x] Ubuntu Installation
+- [x] Ubuntu Domain Join
+- [ ] Windows Client Join
+- [ ] File Server
 - [ ] DHCP
-- [ ] Linux Administration
-- [ ] PowerShell
-- [ ] Bash
-- [ ] Enterprise Automation
-
----
-
-## Author
-
-**Shruti Wamorkar**
-
-This repository is part of my hands-on infrastructure engineering portfolio.
+- [ ] Backup

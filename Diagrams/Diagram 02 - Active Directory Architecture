@@ -1,0 +1,10 @@
+TECHNOVA.LOCAL
+        │
+        │
+   Domain Controller
+        │
+   ┌────┴─────┐
+   │          │
+ DNS      Active Directory
+   │
+ Authentication
