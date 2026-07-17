@@ -26,22 +26,30 @@ The objective is to simulate a production enterprise environment while documenti
 
 ## Infrastructure
 
-Internet
-│
-Home Router
-│
-VirtualBox NAT
-│
-────────────────────────
-Internal Network
-│
-├── DC01 (Windows Server)
-│ IP : 192.168.100.10
-│
-├── Ubuntu01
-│ IP : 192.168.100.20
-│
-└── Future Windows Clients
+```mermaid
+flowchart TB
+
+    Internet((🌐 Internet))
+    Router[Home Router]
+    NAT[VirtualBox NAT Network]
+
+    subgraph VirtualBox Lab
+        direction TB
+
+        Ubuntu[Ubuntu01<br/>Ubuntu Server 24.04<br/>IP: 192.168.100.20]
+
+        subgraph Internal Network (192.168.100.0/24)
+            DC[DC01<br/>Windows Server 2022<br/>IP: 192.168.100.10<br/>Active Directory<br/>DNS Server]
+            Client[Future Windows Client]
+        end
+    end
+
+    Internet --> Router
+    Router --> NAT
+    NAT --> Ubuntu
+    Ubuntu --> DC
+    Ubuntu --> Client
+```
 
 ---
 
