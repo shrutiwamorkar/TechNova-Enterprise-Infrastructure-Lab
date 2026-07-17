@@ -25,33 +25,41 @@ The objective is to simulate a production enterprise environment while documenti
 ---
 
 ## Infrastructure
-Internet
-     │
-Home Router
-     │
-VirtualBox NAT
-     │
-─────────────────────────────
- TechNova Enterprise Lab
-─────────────────────────────
+## Infrastructure
 
-Ubuntu01
-Ubuntu Server 24.04
+```mermaid
+flowchart TB
 
-        │
+    Internet((Internet))
+    Router[Home Router]
 
-Internal Network
+    Router --> VBox
 
- ┌───────────────┐
- │     DC01      │
- │ Windows Server│
- │ ActiveDirectory│
- │ DNS           │
- └───────────────┘
+    subgraph VirtualBox["Oracle VirtualBox"]
 
-        │
+        NAT["NAT Network Adapter"]
 
- Future Windows Client
+        Ubuntu["Ubuntu01<br/>Ubuntu Server 24.04 LTS<br/>IP: 192.168.100.20"]
+
+        NAT --> Ubuntu
+
+        Ubuntu --> Internal
+
+        subgraph Internal["Internal Network"]
+
+            DC["DC01<br/>Windows Server 2022<br/>192.168.100.10<br/>AD DS<br/>DNS"]
+
+            Client["Windows Client<br/>Phase 09"]
+
+        end
+
+        Internal --> DC
+        Internal --> Client
+
+    end
+
+    Internet --> Router
+```
 
 ## Documentation
 
