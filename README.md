@@ -25,41 +25,25 @@ The objective is to simulate a production enterprise environment while documenti
 ---
 
 ## Infrastructure
-## Infrastructure
 
-```mermaid
-flowchart TB
+Internet
+│
+Home Router
+│
+VirtualBox NAT
+│
+────────────────────────
+Internal Network
+│
+├── DC01 (Windows Server)
+│ IP : 192.168.100.10
+│
+├── Ubuntu01
+│ IP : 192.168.100.20
+│
+└── Future Windows Clients
 
-    Internet((Internet))
-    Router[Home Router]
-
-    Router --> VBox
-
-    subgraph VirtualBox["Oracle VirtualBox"]
-
-        NAT["NAT Network Adapter"]
-
-        Ubuntu["Ubuntu01<br/>Ubuntu Server 24.04 LTS<br/>IP: 192.168.100.20"]
-
-        NAT --> Ubuntu
-
-        Ubuntu --> Internal
-
-        subgraph Internal["Internal Network"]
-
-            DC["DC01<br/>Windows Server 2022<br/>192.168.100.10<br/>AD DS<br/>DNS"]
-
-            Client["Windows Client<br/>Phase 09"]
-
-        end
-
-        Internal --> DC
-        Internal --> Client
-
-    end
-
-    Internet --> Router
-```
+---
 
 ## Documentation
 
