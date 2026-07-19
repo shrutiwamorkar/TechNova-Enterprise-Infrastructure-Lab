@@ -26,22 +26,7 @@ The objective is to simulate a production enterprise environment while documenti
 
 ## Infrastructure
 
-Internet
-│
-Home Router
-│
-VirtualBox NAT
-│
-────────────────────────
-Internal Network
-│
-├── DC01 (Windows Server)
-│ IP : 192.168.100.10
-│
-├── Ubuntu01
-│ IP : 192.168.100.20
-│
-└── Future Windows Clients
+![Enterprise Lab Topology](Diagrams/Diagram01%20-%20Enterprise%20Lab%20Topology.png)
 
 ---
 
