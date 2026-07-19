@@ -26,7 +26,7 @@ The objective is to simulate a production enterprise environment while documenti
 
 ## Infrastructure
 
-![Enterprise Lab Topology](Diagrams/Diagram01%20-%20Enterprise%20Lab%20Topology.png)
+![Enterprise Lab Topology](Diagrams/Diagram%2001%20-%20Enterprise%20Lab%20Topology.png)
 
 ---
 
