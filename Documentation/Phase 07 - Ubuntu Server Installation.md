@@ -2,7 +2,7 @@
 
 ## Objective
 
-Deploy Ubuntu Server 24.04 as an enterprise Linux server that will later be integrated with the Active Directory domain.
+Deploy **Ubuntu Server 24.04 LTS** as an enterprise Linux server within the **TECHNOVA.LOCAL** lab environment. Configure networking, assign a static IP address, and verify connectivity in preparation for Active Directory domain integration.
 
 ---
 
@@ -12,89 +12,91 @@ Deploy Ubuntu Server 24.04 as an enterprise Linux server that will later be inte
 |-----------|-------|
 | Virtualization Platform | Oracle VirtualBox |
 | Operating System | Ubuntu Server 24.04 LTS |
-| Hostname | ubuntu01 |
+| Server Name | **UBUNTU01** |
+| Domain | **TECHNOVA.LOCAL** |
 | Network Adapter 1 | NAT |
-| Network Adapter 2 | Internal Network (technova.local)|
+| Network Adapter 2 | Internal Network |
 | Static IP Address | 192.168.100.20/24 |
-| DNS Server | 192.168.100.10 |
-| Domain | TECHNOVA.LOCAL |
+| DNS Server | 192.168.100.10 (**DC01**) |
 
 ---
 
 ## Prerequisites
 
-- Windows Server 2022 Domain Controller (DC01)
-- Active Directory configured
-- DNS service running
-- Internal Network created in VirtualBox
+- **DC01** configured as the Domain Controller
+- **Active Directory Domain Services (AD DS)** installed
+- **DNS Server** operational
+- Internal Network configured in VirtualBox
+- Ubuntu Server 24.04 LTS ISO downloaded
 
 ---
 
-## Tasks Performed
+## Implementation
 
-### 1. Created Ubuntu Virtual Machine
+### 1. Created the Ubuntu Virtual Machine
 
-- Created a new Ubuntu Server virtual machine in VirtualBox.
-- Allocated CPU, RAM and storage resources.
-- Attached Ubuntu Server ISO.
+A new virtual machine named **UBUNTU01** was created using Oracle VirtualBox.
+
+Resources allocated included:
+
+- Virtual CPU
+- Memory (RAM)
+- Virtual Hard Disk
+- Ubuntu Server 24.04 LTS installation ISO
+
+![Ubuntu Server Installed](../Screenshots/Phase07/01_Ubuntu_Server_Installed.png)
 
 ---
 
 ### 2. Installed Ubuntu Server
 
-Completed the installation wizard by configuring:
+The Ubuntu Server installation wizard was completed by configuring:
 
 - Language
 - Keyboard Layout
 - Storage
-- User Account
-- Hostname (ubuntu01)
+- Administrator Account
+- Hostname (**ubuntu01**)
+
+After installation, the server booted successfully into Ubuntu Server.
+
+![Hostname Verification](../Screenshots/Phase07/02_Hostname_Verification.png)
 
 ---
 
-### 3. Configured Network
+### 3. Configured Network Settings
 
-Configured two network adapters.
+The server was configured with two network adapters.
 
-Adapter 1
+**Adapter 1 (NAT)**
 
-- NAT
 - Internet connectivity
+- Package downloads and updates
 
-Adapter 2
+**Adapter 2 (Internal Network)**
 
-- Internal Network
-- Communication with Domain Controller
-
----
-
-### 4. Assigned Static IP Address
-
-Configured Netplan.
-
-Static IP:
-
-192.168.100.20/24
-
-DNS Server:
-
-192.168.100.10
-
-Search Domain:
-
-TECHNOVA.LOCAL
+- Communication with **DC01**
+- Enterprise lab network connectivity
 
 ---
 
-### 5. Applied Network Configuration
+### 4. Assigned a Static IP Address
 
-Executed:
+Network settings were configured using **Netplan**.
+
+Configuration included:
+
+- Static IP Address: **192.168.100.20/24**
+- DNS Server: **192.168.100.10**
+- Search Domain: **TECHNOVA.LOCAL**
+
+The configuration was applied using:
 
 ```bash
 sudo netplan apply
 ```
 
-Verified:
+Network settings were verified with:
 
 ```bash
 ip addr
@@ -102,49 +104,77 @@ ip route
 resolvectl status
 ```
 
+![Static IP Configuration](../Screenshots/Phase07/03_Static_IP_Configuration.png)
+
 ---
 
-### 6. Verified Connectivity
+### 5. Verified Network Connectivity
 
-Successfully tested communication with:
+Connectivity tests confirmed successful communication with:
 
-- Domain Controller
+- **DC01**
 - DNS Server
+- Internal Network
 - Internet
+
+This verified that the Ubuntu server was correctly integrated into the lab network and was ready for domain integration.
+
+![Network Connectivity Test](../Screenshots/Phase07/04_Network_Connectivity_Test.png)
 
 ---
 
 ## Verification
 
-Verified:
+The deployment was successfully verified by confirming:
 
-- Static IP assigned successfully
+- Ubuntu Server installed successfully
+- Hostname configured correctly
+- Static IP address assigned
 - DNS server configured
+- Internal network communication established
 - Internet connectivity available
-- Internal network reachable
 
 ---
 
-## Screenshots
+## Key Concepts
 
-- Ubuntu installation
-- Network Adapter configuration
-- Netplan configuration
-- IP address
-- Routing table
-- DNS configuration
+- Linux Server Deployment
+- Netplan Network Configuration
+- Static IP Addressing
+- DNS Configuration
+- Dual-Network Architecture
+- Enterprise Virtualization
+- Network Verification
 
 ---
 
-## Key Learnings
+## Skills Learned
 
-- Installed Ubuntu Server in a virtualized environment.
-- Configured dual-network adapters for enterprise networking.
-- Learned static IP configuration using Netplan.
-- Verified network connectivity before domain integration.
+- Installing Ubuntu Server
+- Virtual Machine Deployment
+- Linux Network Configuration
+- Netplan Administration
+- Static IP Configuration
+- DNS Configuration
+- Enterprise Network Verification
+- Linux System Administration
+
+---
+
+## Deliverables
+
+✔ Ubuntu Server 24.04 LTS deployed
+
+✔ Static IP configuration completed
+
+✔ DNS configured
+
+✔ Dual-network adapters configured
+
+✔ Connectivity verified
 
 ---
 
 ## Next Phase
 
-Join Ubuntu Server to the Active Directory domain.
+The next phase focuses on joining **UBUNTU01** to the **TECHNOVA.LOCAL** Active Directory domain using **realmd**, **SSSD**, and Kerberos authentication.
