@@ -2,7 +2,7 @@
 
 ## Objective
 
-Integrate Ubuntu Server with the Windows Active Directory domain to enable centralized authentication using Kerberos and SSSD.
+Integrate **UBUNTU01** with the **TECHNOVA.LOCAL** Active Directory domain to enable centralized authentication using **Kerberos**, **SSSD**, and **realmd**. This allows Linux systems to authenticate against Windows Active Directory, providing a unified identity management solution within the enterprise lab.
 
 ---
 
@@ -10,29 +10,31 @@ Integrate Ubuntu Server with the Windows Active Directory domain to enable centr
 
 | Component | Value |
 |-----------|-------|
-| Ubuntu Server | 24.04 LTS |
-| Hostname | ubuntu01 |
-| Domain Controller | DC01 |
-| Domain | TECHNOVA.LOCAL |
-| Ubuntu IP | 192.168.100.20 |
+| Operating System | Ubuntu Server 24.04 LTS |
+| Server Name | **UBUNTU01** |
+| Domain Controller | **DC01** |
+| Domain | **TECHNOVA.LOCAL** |
+| Ubuntu IP Address | 192.168.100.20 |
 | Domain Controller IP | 192.168.100.10 |
 
 ---
 
 ## Prerequisites
 
-- Active Directory Domain Controller configured
+- **DC01** configured as an Active Directory Domain Controller
 - DNS configured correctly
-- Ubuntu Server with static IP
+- Ubuntu Server installed
+- Static IP address configured
 - Network connectivity verified
+- Time synchronization functioning correctly
 
 ---
 
-## Tasks Performed
+## Implementation
 
 ### 1. Installed Required Packages
 
-Installed the packages required for Active Directory integration.
+The required packages for Active Directory integration were installed.
 
 ```bash
 sudo apt update
@@ -40,191 +42,188 @@ sudo apt update
 sudo apt install realmd sssd sssd-tools adcli samba-common-bin oddjob oddjob-mkhomedir packagekit krb5-user
 ```
 
+These packages provide:
+
+- Active Directory discovery
+- Kerberos authentication
+- SSSD identity services
+- Domain joining utilities
+
 ---
 
 ### 2. Verified DNS Configuration
 
-Verified Ubuntu was using the Domain Controller as its DNS server.
+The Ubuntu server was configured to use **DC01** as its DNS server.
 
-```bash
-resolvectl status
-```
+Initially, the DNS search domain was missing, preventing Active Directory discovery.
 
-Initially, the DNS search domain was missing.
-
-Updated Netplan configuration to include:
+Netplan was updated to include:
 
 ```yaml
 search:
   - technova.local
 ```
 
-Applied changes:
+The configuration was applied using:
 
 ```bash
 sudo netplan apply
 ```
 
+DNS resolution was verified before proceeding.
+
+![DNS Resolution](../Screenshots/Phase08/08_DNS_Resolution.png)
+
 ---
 
 ### 3. Verified Active Directory Discovery
 
-Executed:
+Active Directory discovery was performed using:
 
 ```bash
 realm discover technova.local
 ```
 
-Successfully discovered:
+The command successfully identified:
 
 - Realm Name
 - Domain Name
-- Kerberos
-- Active Directory
-- Required packages
+- Kerberos Realm
+- Active Directory Server
+- Required integration packages
+
+![Realm Discovery](../Screenshots/Phase08/01_Realm_Discover.png)
 
 ---
 
 ### 4. Verified Kerberos Authentication
 
-Obtained a Kerberos ticket.
+Kerberos authentication was tested by requesting a Ticket Granting Ticket (TGT).
 
 ```bash
 kinit Administrator
-```
 
-Verified:
-
-```bash
 klist
 ```
 
-Successfully received Kerberos Ticket Granting Ticket (TGT).
+Successful authentication confirmed that Kerberos communication with the domain controller was functioning correctly.
+
+![Kerberos Authentication](../Screenshots/Phase08/02_Kerberos_Authentication.png)
 
 ---
 
 ### 5. Joined Ubuntu to Active Directory
 
-Executed:
+The Ubuntu server was joined to the Active Directory domain.
 
 ```bash
 sudo realm join -U Administrator technova.local
 ```
 
-Authenticated using the Domain Administrator password.
+After entering the Domain Administrator credentials, **UBUNTU01** successfully became a member of the **TECHNOVA.LOCAL** domain.
 
-Ubuntu joined the Active Directory domain successfully.
+![Realm Join](../Screenshots/Phase08/03_Realm_Join.png)
 
 ---
 
 ### 6. Verified Domain Membership
 
-Executed:
+Domain membership was confirmed using:
 
 ```bash
 realm list
 ```
 
-Output confirmed:
+Verification confirmed:
 
-- TECHNOVA.LOCAL
-- kerberos-member
-- login policy
-- SSSD client
+- Domain membership
+- Kerberos authentication
+- Login policy
+- SSSD configuration
+
+![Domain Information](../Screenshots/Phase08/09_Domain_Information.png)
 
 ---
 
 ### 7. Verified Domain User Resolution
 
-Verified domain user lookup.
+Domain user information was retrieved successfully.
 
 ```bash
 id Administrator@technova.local
-```
 
-Verified user database.
-
-```bash
 getent passwd 'TECHNOVA\Administrator'
 ```
 
-Both commands successfully returned Active Directory user information.
+The returned information confirmed that Ubuntu could query users directly from Active Directory.
+
+![Domain User Verification](../Screenshots/Phase08/05_Domain_User_Verification.png)
 
 ---
 
 ### 8. Verified SSSD Service
 
-Executed:
+The SSSD service was verified.
 
 ```bash
 sudo systemctl status sssd
 ```
 
-Confirmed:
+The service was confirmed to be:
 
-- SSSD service active
-- Authentication backend running
-- Domain communication established
+- Active
+- Running
+- Communicating successfully with Active Directory
+
+![SSSD Status](../Screenshots/Phase08/06_SSSD_Status.png)
 
 ---
 
-## Commands Used
+### 9. Verified Authentication Services
 
-```bash
-realm discover technova.local
+Additional verification confirmed that authentication services were operating correctly and that domain-based logins were available.
 
-kinit Administrator
+![Authentication Service](../Screenshots/Phase08/07_Authentication_Service.png)
 
-klist
+---
 
-realm list
+### 10. Verified Time Synchronization
 
-id Administrator@technova.local
+Time synchronization between **UBUNTU01** and the domain controller was verified.
 
-getent passwd 'TECHNOVA\Administrator'
+Accurate system time is essential for successful Kerberos authentication because Kerberos tickets are time-sensitive.
 
-sudo systemctl status sssd
-```
+![Time Synchronization](../Screenshots/Phase08/10_Time_synchronization.png)
 
 ---
 
 ## Verification
 
-Successfully verified:
+The Active Directory integration was successfully verified by confirming:
 
-- Domain discovery
+- DNS resolution
+- Active Directory discovery
 - Kerberos authentication
-- Active Directory join
+- Successful domain join
 - Domain membership
-- User resolution
-- SSSD service
+- Domain user resolution
+- SSSD service operation
+- Authentication services
+- Time synchronization
 
-Ubuntu Server is now authenticated against the Active Directory domain.
-
----
-
-## Screenshots
-
-Include screenshots of:
-
-- Netplan configuration
-- resolvectl status
-- realm discover
-- kinit
-- klist
-- realm join
-- realm list
-- id Administrator@technova.local
-- getent passwd 'TECHNOVA\Administrator'
-- sudo systemctl status sssd
+The Ubuntu server is now fully integrated with the **TECHNOVA.LOCAL** Active Directory domain.
 
 ---
 
 ## Challenges Faced
 
-### Problem
+### Issue
 
-`realm discover technova.local`
+Initially, the command:
+
+```bash
+realm discover technova.local
+```
 
 returned:
 
@@ -234,37 +233,68 @@ No such realm found
 
 ### Root Cause
 
-The DNS search domain was not configured in Netplan.
+The Ubuntu server was missing the DNS search domain in the Netplan configuration.
 
 ### Resolution
 
-Added the following configuration:
+The following configuration was added:
 
 ```yaml
 search:
   - technova.local
 ```
 
-Applied the configuration using:
+After applying the configuration:
 
 ```bash
 sudo netplan apply
 ```
 
-After the DNS configuration was corrected, the domain was successfully discovered and Ubuntu joined the Active Directory domain.
+Active Directory discovery completed successfully, allowing the server to join the domain.
 
 ---
 
-## Key Learnings
+## Key Concepts
 
-- Configured enterprise DNS on Ubuntu.
-- Integrated Linux with Windows Active Directory.
-- Used Kerberos for centralized authentication.
-- Configured SSSD for identity management.
-- Verified Linux domain authentication using Active Directory users.
+- Active Directory Integration
+- Kerberos Authentication
+- SSSD Identity Services
+- Linux Domain Membership
+- DNS Resolution
+- Enterprise Authentication
+- Time Synchronization
+
+---
+
+## Skills Learned
+
+- Integrating Linux with Active Directory
+- Configuring Kerberos
+- Using realmd
+- Configuring SSSD
+- Domain Authentication
+- Linux Identity Management
+- Enterprise DNS Configuration
+- Cross-Platform System Administration
+
+---
+
+## Deliverables
+
+✔ Ubuntu integrated with Active Directory
+
+✔ Kerberos authentication verified
+
+✔ Domain membership established
+
+✔ Domain users resolved successfully
+
+✔ SSSD configured and operational
+
+✔ Enterprise authentication validated
 
 ---
 
 ## Next Phase
 
-Join a Windows 11 client machine to the TECHNOVA.LOCAL domain and verify centralized authentication.
+The next phase focuses on deploying a **Windows 11 Enterprise** client and joining it to the **TECHNOVA.LOCAL** domain to complete the enterprise infrastructure lab.
