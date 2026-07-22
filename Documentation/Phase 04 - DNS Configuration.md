@@ -48,7 +48,7 @@ ping DC01
 
 Successful responses confirmed that DNS was correctly resolving hostnames and domain information.
 
-![NSLookup Verification](../Screenshots/Phase04/02_NSLookup.jpeg)
+![NSLookup Verification](../Screenshots/Phase04/02_NSLookup.png)
 
 ---
 
