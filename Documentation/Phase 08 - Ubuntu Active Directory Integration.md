@@ -72,7 +72,7 @@ sudo netplan apply
 
 DNS resolution was verified before proceeding.
 
-![DNS Resolution](../Screenshots/Phase08/08_DNS_Resolution.png)
+![DNS Resolution](../Screenshots/Phase08/08_DNS_resolution.png)
 
 ---
 
@@ -141,7 +141,7 @@ Verification confirmed:
 - Login policy
 - SSSD configuration
 
-![Domain Information](../Screenshots/Phase08/09_Domain_Information.png)
+![Domain Information](../Screenshots/Phase08/09_Domain_information.png)
 
 ---
 
@@ -183,7 +183,7 @@ The service was confirmed to be:
 
 Additional verification confirmed that authentication services were operating correctly and that domain-based logins were available.
 
-![Authentication Service](../Screenshots/Phase08/07_Authentication_Service.png)
+![Authentication Service](../Screenshots/Phase08/07_Authentication_service.png)
 
 ---
 
